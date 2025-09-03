@@ -14,7 +14,11 @@ describe ConnectFour do
     describe '#player_move' do
         subject(:game_move) { described_class.new }
         it 'changes the board' do
-            expect { game.player_move(player1,2) }.to change { game.instance_variable_get(:board)[1][0] }.to(1)
+            expect { game.player_move(player1,2) }.to change { game.instance_variable_get(:board)[1][0] }.to(player1)
         end
+    end
+
+    describe '#get_new_board' do
+    
     end
 end
