@@ -25,15 +25,18 @@ describe ConnectFour do
     end
   end
 
-  describe '#game_won?' do
+  describe '#who_won?' do
     subject(:game_win) { described_class.new(player1, player2) }
     let(:board_win) { game_move.get_new_board }
 
     context 'when player1 won horizontally' do
       before do
-        for i in 0..4 do
-          board_win[]
+        (0..3).each do |i|
+          board_win[0][i] = player1
         end
+      end
+      it 'returns player1' do
+        expect { game_win.who_won? }.to be(player1)
       end
     end
   end
