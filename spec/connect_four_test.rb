@@ -1,24 +1,40 @@
-require_relative '../lib/connect_four.rb'
-require_relative '../lib/player.rb'
+require_relative '../lib/connect_four'
+require_relative '../lib/player'
 
 describe ConnectFour do
-
   let(:player1) { Player.new('Aaron') }
   let(:player2) { Player.new('Marlene') }
 
-    #Looping Script Method
-    describe '#start_game' do
-        
-    end
+  # Looping Script Method
+  describe '#start_game' do
+  end
 
-    describe '#player_move' do
-        subject(:game_move) { described_class.new }
-        it 'changes the board' do
-            expect { game.player_move(player1,2) }.to change { game.instance_variable_get(:board)[1][0] }.to(player1)
+  describe '#get_new_board' do
+  end
+
+  describe '#player_move' do
+    subject(:game_move) { described_class.new(player1, player2) }
+    let(:board_move) { game_move.get_new_board }
+
+    before do
+      game_move.player_move(player1, 2)
+      board_move[1][0] = player1
+    end
+    it 'changes the right position in the column' do
+      expect(game_move.instance_variable_get(:@board)).to eql(board_move)
+    end
+  end
+
+  describe '#game_won?' do
+    subject(:game_win) { described_class.new(player1, player2) }
+    let(:board_win) { game_move.get_new_board }
+
+    context 'when player1 won horizontally' do
+      before do
+        for i in 0..4 do
+          board_win[]
         end
+      end
     end
-
-    describe '#get_new_board' do
-    
-    end
+  end
 end
