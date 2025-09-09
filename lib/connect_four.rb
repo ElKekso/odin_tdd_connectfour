@@ -23,4 +23,25 @@ class ConnectFour
   def get_new_board
     Array.new(7) { Array.new(6, 0) }
   end
+
+  def who_won
+    count = 1
+    prior = nil
+    @board.each do |column|
+      break if count == 4
+
+      prior = nil
+      column.each do |row|
+        break if row == 0 || count == 4
+
+        if prior == row
+          count += 1
+        else
+          count = 1
+        end
+        prior = row
+      end
+    end
+    prior if count == 4
+  end
 end
