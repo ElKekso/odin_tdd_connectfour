@@ -25,10 +25,7 @@ class ConnectFour
   end
 
   def who_won
-    won = who_won_vertically
-    return won if !won.nil?
-    won = who_won_horizontally
-    return won if !won.nil?
+    [who_won_vertically, who_won_horizontally, who_won_diagonally].find { |item| !item.nil? }
   end
 
   def who_won_vertically(board = @board)
@@ -86,6 +83,54 @@ class ConnectFour
   end
 
   def who_won_diagonally
-    
+    # calculate if someone won on diagonals going up right
+    won = calc_diagonals()
+    return won if !won.nil?
+    # clone and flip board to calculate if someone won on diagonals going down right
+    cloned_board = @board.map { |array| array.map(&:clone) }
+    flipped_board = cloned_board.map { |array| array.reverse }
+    won = calc_diagonals(flipped_board)
+    won
   end
-end
+
+  def calc_diagonal_column(x=0,y=0,board)
+    # count amount of times the same player was found in a row
+    count = 1
+    # found value from prior iteration
+    prior = nil
+    # min length between column and row length
+    min_length = [board.length(),board[0].length].min
+    (0..min_length).each do |i|
+      # column and row getting their offset added
+      column = i + x
+      row = i + y
+      # check for row and column to not be out of bounds or if someone won
+      break if column > 6 || row > 5 || count == 4
+      board_value = board[column][row]
+      if board_value == prior
+        count += 1
+      else
+        count = 1
+      end
+      prior = board_value
+    end
+    prior if count == 4
+  end
+
+  def calc_diagonals(board=@board)
+    # subtract 4 because len() is one higher than highest index (1) and last 3 spots cant be diagonal in tested direction
+    row_length_subtracted = board.length() - 4
+    column_length_subtracted = board[0].length() - 4
+    (0..row_length_subtracted).each do |i|
+      diagonal_result = calc_diagonal_column(x=i,board=board)
+      return diagonal_result if !diagonal_result.nil?
+    end
+    # start at 1 because [0][0] upwards cascade already tried
+    (1..column_length_subtracted).each do |i|
+      diagonal_result = calc_diagonal_column(y=i, board=board)
+      return diagonal_result if !diagonal_result.nil?
+    end
+    nil
+  end
+
+  end

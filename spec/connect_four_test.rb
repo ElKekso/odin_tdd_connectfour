@@ -67,22 +67,37 @@ describe ConnectFour do
       end
     end
 
-    context 'when player1 won diagonally' do
+    context 'when player1 won diagonally up from [0][0]' do
       # create a board that wins diagonally
       let(:board_diagonally) do
-        board_diganoally = create_cf_board
+        board_diagonally = create_cf_board
         (0..3).each do |i|
-          (0..3).each do |j|
-            board_diagonally[i][j] = player1
-          end
+          board_diagonally[i][i] = player1
         end
         board_diagonally
       end
 
       subject(:game_diagonally) { described_class.new(player1, player2, board_diagonally) }
 
-      xit 'returns player1' do
+      it 'returns player1' do
         expect(game_diagonally.who_won).to be(player1)
+      end
+    end
+
+    context 'when player2 won diagonally down from [0][5]' do
+    # create a board that wins diagonally
+      let(:board_diagonally_down) do
+        board_diagonally_down = create_cf_board
+        (0..3).each do |i|
+          board_diagonally_down[i][5 - i] = player2
+        end
+        board_diagonally_down
+      end
+
+      subject(:game_diagonally_down) { described_class.new(player1, player2, board_diagonally_down) }
+
+      it 'returns player2' do
+        expect(game_diagonally_down.who_won).to be(player2)
       end
     end
   end
