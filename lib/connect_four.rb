@@ -121,10 +121,13 @@ class ConnectFour
     # subtract 4 because len() is one higher than highest index (1) and last 3 spots cant be diagonal in tested direction
     row_length_subtracted = board.length() - 4
     column_length_subtracted = board[0].length() - 4
+
+    # calculate result starting from [0][0] and increasing offset to column
     (0..row_length_subtracted).each do |i|
       diagonal_result = calc_diagonal_column(x=i,board=board)
       return diagonal_result if !diagonal_result.nil?
     end
+
     # start at 1 because [0][0] upwards cascade already tried
     (1..column_length_subtracted).each do |i|
       diagonal_result = calc_diagonal_column(y=i, board=board)
