@@ -25,15 +25,27 @@ class ConnectFour
   end
 
   def who_won
+    won = who_won_vertically
+    return won if !won.nil?
+    won = who_won_horizontally
+    return won if !won.nil?
+  end
+
+  def who_won_vertically(board = @board)
+    # count amount of times the same player was found in a row
     count = 1
+    # the prior field
     prior = nil
-    @board.each do |column|
+
+    board.each do |column|
       break if count == 4
 
+      #reset prior for next column
       prior = nil
       column.each do |row|
         break if row == 0 || count == 4
 
+        # add one to count if value is same as prior or reset to 1
         if prior == row
           count += 1
         else
@@ -42,6 +54,38 @@ class ConnectFour
         prior = row
       end
     end
-    prior if count == 4
+    prior
+  end
+
+  def who_won_horizontally
+     # count amount of times the same player was found in a row
+    count = 1
+    # the prior field
+    prior = nil
+
+    # loop through the rows
+    (0..5).each do |row|
+      break if count == 4
+
+      #reset prior for next row
+      prior = nil
+      (0..6).each do |column|
+        board_value = @board[column][row]
+        break if board_value == 0 || count == 4
+
+        # add one to count if value is same as prior or reset to 1
+        if prior == board_value
+          count += 1 
+        else
+          count = 1
+        end
+        prior = board_value
+      end
+    end
+    prior
+  end
+
+  def who_won_diagonally
+    
   end
 end
