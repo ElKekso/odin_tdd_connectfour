@@ -30,6 +30,10 @@ describe ConnectFour do
     it 'changes the right position in the column' do
       expect(game_move.instance_variable_get(:@board)).to eql(board_move)
     end
+
+    context 'when column number 3 is full' do
+      
+    end
   end
 
   describe '#who_won' do

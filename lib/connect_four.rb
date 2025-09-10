@@ -20,6 +20,8 @@ class ConnectFour
     end
   end
 
+  def start_game()
+
   def get_new_board
     Array.new(7) { Array.new(6, 0) }
   end
@@ -136,4 +138,22 @@ class ConnectFour
     nil
   end
 
+  def print_board
+    board = ""
+    (0..5).each do |i|
+      string_row = ""
+      (0..6).each do |j|
+        board_value = @board[j][i]
+        mark = " "
+        if board_value == @player1
+          mark = "x"
+        elsif board_value == @player2
+          mark = "o"
+        end
+        string_row += " | " + mark
+      end
+      string_row += " | "
+      board += string_row
+    end
+    print(board)
   end
