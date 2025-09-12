@@ -3,6 +3,7 @@ require_relative './player'
 # Class for a Game of Connect Four
 class ConnectFour
   attr_reader :board
+  attr_writer :board
 
   def initialize(player1, player2, board = get_new_board)
     @player1 = player1
@@ -22,7 +23,8 @@ class ConnectFour
     false
   end
 
-  def start_game()
+  def reset_board()
+    @board = get_new_board
   end
 
   def get_new_board
@@ -143,9 +145,12 @@ class ConnectFour
 
   def print_board
     board = ""
-    (0..5).each do |i|
-      string_row = ""
-      (0..6).each do |j|
+    column_length = @board[0].length
+    row_length = @board.length
+
+    (0..(column_length - 1)).reverse_each.each do |i|
+      string_row = " | "
+      (0..(row_length - 1)).each do |j|
         board_value = @board[j][i]
         mark = " "
         if board_value == @player1
@@ -153,11 +158,18 @@ class ConnectFour
         elsif board_value == @player2
           mark = "o"
         end
-        string_row += " | " + mark
+        string_row += mark + " | "
       end
-      string_row += " | "
+      string_row += "\n"
       board += string_row
+      board += "\n"
     end
+    number_row = "   "
+    (1..row_length).each do |i|
+      number_row += "#{i}   "
+    end
+    number_row += "\n"
+    board += number_row
     print(board)
   end
 end
