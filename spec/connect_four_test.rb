@@ -31,7 +31,20 @@ describe ConnectFour do
     end
 
     context 'when column number 3 is full returns false' do
-      before do
+      let(:board_move_full) do
+        board_move_full = create_cf_board
+        column_length = board_move_full[0].length
+        board_move_full[2] = Array.new(column_length, player1)
+        board_move_full
+      end
+      subject(:game_move_full) { described_class.new(player1, player2, board_move_full) }
+
+      it 'changes nothing' do
+        expect { game_move_full.player_move(player1, 3) }.not_to change { game_move.instance_variable_get(:@board) } 
+      end
+
+      it 'returns false' do
+        expect(game_move_full.player_move(player1, 3)).to be(false)
       end
     end
   end

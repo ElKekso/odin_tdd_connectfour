@@ -13,11 +13,12 @@ class ConnectFour
   def player_move(player, column)
     column -= 1
     @board[column].each_with_index do |value, index|
-      if value.zero?
+      if value == 0
         @board[column][index] = player
-        break
+        return true
       end
     end
+    false
   end
 
   def start_game()
