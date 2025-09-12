@@ -31,6 +31,14 @@ class ConnectFour
     Array.new(7) { Array.new(6, 0) }
   end
 
+  def full?
+    max_column_field = board[0].length - 1
+    @board.each do |column|
+      return false if column[max_column_field] == 0
+    end
+    true
+  end
+
   def who_won
     [who_won_vertically, who_won_horizontally, who_won_diagonally].find { |item| !item.nil? }
   end

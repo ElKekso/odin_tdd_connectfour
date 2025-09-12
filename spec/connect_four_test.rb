@@ -122,4 +122,21 @@ describe ConnectFour do
       end
     end
   end
+
+  describe '#full?' do
+
+    context 'when board is full' do
+      let(:board_full) { create_cf_board(player1) }
+      subject(:game_full) { described_class.new(player1,player2,board_full)}
+      it 'returns true' do
+        expect(game_full.full?).to be(true)
+      end
+    end
+
+    context 'when board is not full' do
+      it 'returns false' do
+        expect(game.full?).to be(false)
+      end
+    end
+  end
 end
