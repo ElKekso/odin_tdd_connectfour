@@ -30,6 +30,10 @@ describe ConnectFour do
       expect { game_move.player_move(player1, 2) }.to change { game_move.instance_variable_get(:@board) }.to (board_move)
     end
 
+    it 'returns false when the chosen column does not exist' do
+      expect(game_move.player_move(player1, 8)).to be(false)
+    end
+
     context 'when column number 3 is full returns false' do
       let(:board_move_full) do
         board_move_full = create_cf_board

@@ -12,6 +12,7 @@ class ConnectFour
 
   def player_move(player, column)
     column -= 1
+    return false if column >= @board.length
     @board[column].each_with_index do |value, index|
       if value == 0
         @board[column][index] = player
