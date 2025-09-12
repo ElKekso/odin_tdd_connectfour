@@ -21,6 +21,7 @@ class ConnectFour
   end
 
   def start_game()
+  end
 
   def get_new_board
     Array.new(7) { Array.new(6, 0) }
@@ -157,3 +158,4 @@ class ConnectFour
     end
     print(board)
   end
+end

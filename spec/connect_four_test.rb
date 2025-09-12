@@ -24,15 +24,15 @@ describe ConnectFour do
     let(:board_move) { create_cf_board }
 
     before do
-      game_move.player_move(player1, 2)
       board_move[1][0] = player1
     end
     it 'changes the right position in the column' do
-      expect(game_move.instance_variable_get(:@board)).to eql(board_move)
+      expect { game_move.player_move(player1, 2) }.to change { game_move.instance_variable_get(:@board) }.to (board_move)
     end
 
-    context 'when column number 3 is full' do
-      
+    context 'when column number 3 is full returns false' do
+      before do
+      end
     end
   end
 
