@@ -40,7 +40,9 @@ class ConnectFour
   end
 
   def who_won
-    [who_won_vertically, who_won_horizontally, who_won_diagonally].find { |item| !item.nil? }
+    winner = [who_won_vertically, who_won_horizontally, who_won_diagonally].find { |item| !item.nil? }
+    return 0 if winner.nil?
+    winner
   end
 
   def who_won_vertically(board = @board)
